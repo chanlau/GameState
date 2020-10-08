@@ -9,7 +9,7 @@ public class GameState {
     int whoseTurn = 1;
 
     //constructor
-    public void makeGame(){
+    public void GameState(){
         Card[] discardPile = new Card[1];
         Card[] deck = new Card[100];
         int whoseTurn = 1;

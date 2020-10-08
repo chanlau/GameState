@@ -78,6 +78,7 @@ public class Card {
 
     //attack card
     void Attack() {
+        /*
         //increment whose turn it is
         whoseTurn++;
         //determine what player is forced to draw 2 cards
@@ -86,7 +87,9 @@ public class Card {
                 Player(1);
                 break;
         }
+         */
     }
+
 
     //Beard Cat card
     void BeardCat() {
