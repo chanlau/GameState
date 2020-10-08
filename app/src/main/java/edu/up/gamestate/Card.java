@@ -3,9 +3,9 @@ package edu.up.gamestate;
 public class Card {
     //create variables for the current player playing the card, the target player of the card
     //if there is one, and the cardType as an int
-    Player currPlayer;
-    Player targPlayer;
-    int cardType;
+    private Player currPlayer;
+    private Player targPlayer;
+    private int cardType;
 
     public Card(int cardType, Player currPlayer, Player targPlayer) {
         this.cardType = cardType;
