@@ -53,23 +53,35 @@ public class GameState {
     }
 
     //methods for actions
+
+    //draw a card and end the turn of the player
     public boolean drawCard(Player player){
+        boolean addCard = false;
+        //add the card to the players hand
         for (int i = 0; i < player.playerHand.length; i++) {
             if (player.playerHand[i] != null) {
-                player.playerHand[i] == this.deck[0];
+                player.playerHand[i] = this.deck[0];
+                addCard = true;
+                this.whoseTurn++;
             }
         }
-        
-        //copy the deck except shift every card left by 1
-        int a = 1;
-        for (int b = 0; b < this.deck.length; b++) {
-            this.deck[b] = this.deck[a];
-            a++;
+
+        //copy the deck except shift every card left by 1 to remove the card that was drawn
+        if (addCard) {
+            int a = 1;
+            for (int b = 0; b < this.deck.length; b++) {
+                this.deck[b] = this.deck[a];
+                a++;
+            }
         }
-        return false;
+        return addCard;
     }
 
-    public boolean play(){return false;}
+    //play a selected card
+    public boolean play(Player player, int a){
+        player.playerHand[a]
+        return false;
+    }
 
     public boolean trade2(){return false;}
 
