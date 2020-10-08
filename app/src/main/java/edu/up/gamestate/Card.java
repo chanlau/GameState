@@ -7,7 +7,7 @@ public class Card {
     Player targPlayer;
     int cardType;
 
-    Card(int cardType, Player currPlayer, Player targPlayer) {
+    public Card(int cardType, Player currPlayer, Player targPlayer) {
         this.cardType = cardType;
         this.currPlayer = currPlayer;
         this.targPlayer = targPlayer;
