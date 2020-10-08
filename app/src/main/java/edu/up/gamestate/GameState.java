@@ -4,16 +4,9 @@ import java.util.Arrays;
 
 public class GameState {
     //instance variables
-    Card[] discardPile = new Card[1];
+    Card[] discardPile = new Card[100];
     Card[] deck = new Card[100];
     int whoseTurn = 1;
-
-    //constructor
-    public void makeGame(){
-        Card[] discardPile = new Card[100];
-        Card[] deck = new Card[100];
-        int whoseTurn = 1;
-    }
 
     //to string class
     public void ToString(){
