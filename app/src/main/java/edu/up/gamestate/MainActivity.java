@@ -17,17 +17,23 @@ MainActivity extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Initalizing the runButton and setting it's click listener
         Button runButton = findViewById(R.id.runButton);
         runButton.setOnClickListener(this);
-
 
     }
 
     @Override
     public void onClick(View view) {
+        //Clearing all current text in the text field
         EditText displayText = findViewById(R.id.displayText);
         displayText.setText("");
 
+        Player thisIsntDoneRight = new Player(1);
+
         GameState firstInstance = new GameState();
+        GameState secondInstance = new GameState(firstInstance);
+        
+        firstInstance.drawCard(thisIsntDoneRight);
     }
 }
