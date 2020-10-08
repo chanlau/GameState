@@ -11,14 +11,14 @@ public class GameState {
     int whoseTurn;
 
     //constructor
-    public void GameState(){
+    public GameState(){
         Card[] discardPile = new Card[100];
         Card[] deck = new Card[100];
         int whoseTurn = 1;
     }
 
     //constructor to copy the given gamestate
-    public void GameState(GameState gamestate) {
+    public GameState(GameState gamestate) {
         /**
          * External Citation
          * Date: 8 October 2020
@@ -30,11 +30,11 @@ public class GameState {
          */
         //deep copy of the gamestate discardPile
         for (int a = 0; a < gamestate.discardPile.length; a++) {
-            this.discardPile[a] = gamestate.discardPile[a];
+            this.discardPile[a] = new Card(gamestate.discardPile[a]);
         }
         //deep copy of the gamestate deck
         for (int a = 0; a < gamestate.deck.length; a++) {
-            this.deck[a] = gamestate.deck[a];
+            this.deck[a] = new Card(gamestate.deck[a]);
         }
         //copy of whose turn it is
         this.whoseTurn = gamestate.whoseTurn;
