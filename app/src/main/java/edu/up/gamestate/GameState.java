@@ -30,7 +30,7 @@ public class GameState {
          */
         //deep copy of the gamestate discardPile
         for (int a = 0; a < gamestate.discardPile.length; a++) {
-            this.discardPile[a] = new Card(gamestate.discardPile[a]);
+            this.discardPile[a] = gamestate.discardPile[a];
         }
         //deep copy of the gamestate deck
         for (int a = 0; a < gamestate.deck.length; a++) {
@@ -41,7 +41,7 @@ public class GameState {
     }
 
     //to string class
-    //@Override
+    @Override
     public void ToString(){
         String discardString = Arrays.toString(discardPile);
         Log.d("GameState", "Discard Pile: " + discardString );
@@ -59,7 +59,7 @@ public class GameState {
         boolean addCard = false;
         //add the card to the players hand
         for (int i = 0; i < player.playerHand.length; i++) {
-            if (player.playerHand[i] == null) {
+            if (player.playerHand[i] != null) {
                 player.playerHand[i] = this.deck[0];
                 addCard = true;
                 this.whoseTurn++;
@@ -79,7 +79,7 @@ public class GameState {
 
     //play a selected card
     public boolean play(Player player, int a){
-
+        player.playerHand[a]
         return false;
     }
 
