@@ -3,16 +3,31 @@ package edu.up.gamestate;
 public class Card {
     //create variables for the current player playing the card, the target player of the card
     //if there is one, and the cardType as an int
-    Player currPlayer;
-    Player targPlayer;
-    int cardType;
+    private Player currPlayer;
+    private Player targPlayer;
+    private int cardType;
 
-    Card(int cardType, Player currPlayer, Player targPlayer) {
-        //initialize instance variables
+    public Card(int cardType, Player currPlayer, Player targPlayer) {
         this.cardType = cardType;
         this.currPlayer = currPlayer;
         this.targPlayer = targPlayer;
     }
+    public Card(Card orig){
+        this(orig.getCardType(),orig.getCurrPlayer(), orig.getTargPlayer());
+    }
+
+    public Player getCurrPlayer(){
+        return currPlayer;
+    }
+
+    public Player getTargPlayer(){
+        return targPlayer;
+    }
+
+    public int getCardType(){
+        return cardType;
+    }
+
 
     //method to call when a card is played
     public void playCard(int card) {
@@ -63,6 +78,7 @@ public class Card {
 
     //attack card
     void Attack() {
+        /*
         //increment whose turn it is
         whoseTurn++;
         //determine what player is forced to draw 2 cards
@@ -71,7 +87,9 @@ public class Card {
                 Player(1);
                 break;
         }
+         */
     }
+
 
     //Beard Cat card
     void BeardCat() {
@@ -127,4 +145,5 @@ public class Card {
     void ExplodingKitten() {
 
     }
+
 }
