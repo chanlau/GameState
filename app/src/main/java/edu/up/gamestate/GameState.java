@@ -15,6 +15,9 @@ public class GameState {
         int whoseTurn = 1;
     }
 
+    //copy constructor
+
+
     //to string class
     public void ToString(){
         String discardString = Arrays.toString(discardPile);
