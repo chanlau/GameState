@@ -35,5 +35,6 @@ MainActivity extends AppCompatActivity implements View.OnClickListener {
         GameState secondInstance = new GameState(firstInstance);
 
         firstInstance.drawCard(thisIsntDoneRight);
+        displayText.append("I drew a card");
     }
 }
