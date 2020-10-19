@@ -33,7 +33,7 @@ MainActivity extends AppCompatActivity implements View.OnClickListener {
 
         GameState firstInstance = new GameState();
         GameState secondInstance = new GameState(firstInstance);
-        
+
         firstInstance.drawCard(thisIsntDoneRight);
     }
 }
