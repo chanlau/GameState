@@ -8,15 +8,15 @@ public class GameState {
     //instance variables
     Card[] discardPile;
     Card[] deck;
-    int whoseTurn;
     Player[] players;
+    int whoseTurn;
 
     //constructor
     public GameState(){
-        Card[] discardPile = new Card[100];
-        Card[] deck = new Card[100];
-        int whoseTurn = 1;
-        Player[] players = new Player[4];
+        this.discardPile = new Card[100];
+        this.deck = new Card[100];
+        this.players = new Player[5];
+        this.whoseTurn = 1;
     }
 
     //constructor to copy the given gamestate
@@ -38,18 +38,85 @@ public class GameState {
         for (int a = 0; a < gamestate.deck.length; a++) {
             this.deck[a] = gamestate.deck[a];
         }
-
-        //copy of player array
-        for (int a = 0; a < gamestate.players.length; a++) {
-            this.players[a] = gamestate.players[a];
-        }
-
         //copy of whose turn it is
         this.whoseTurn = gamestate.whoseTurn;
     }
 
+
+    //method to call when a card is played
+    public void makeMove(CardAction action) {
+        //check which action is being taken
+        if(action instanceof PlayAttackCard) {
+            Attack(action.getPlayer(), ((PlayAttackCard) action).getTarget());
+        }
+
+    }
+
+    //attack card
+    void Attack(Player player, Player target) {
+        whoseTurn++;
+        
+    }
+
+
+    //Beard Cat card
+    void BeardCat() {
+
+    }
+
+    //Cattermelon card
+    void Cattermelon() {
+
+    }
+
+    //Favor card
+    void Favor() {
+
+    }
+
+    //Hairy Potato Cat card
+    void HairyPotatoCat() {
+
+    }
+
+    //Nope card
+    void Nope() {
+
+    }
+
+    //Rainbow-Ralphing Cat card
+    void RainbowRalphingCat() {
+
+    }
+
+    //See the Future card
+    void SeeTheFuture() {
+
+    }
+
+    //Shuffle card
+    void Shuffle() {
+
+    }
+
+    //Skip card
+    void Skip() {
+
+    }
+
+    //Tacocat card
+    void TacoCat () {
+
+    }
+
+    //Exploding Kitten card
+    void ExplodingKitten() {
+
+    }
+
+
     //to string class
-    @Override
+    //@Override
     public void ToString(){
         String discardString = Arrays.toString(discardPile);
         Log.d("GameState", "Discard Pile: " + discardString );
@@ -87,7 +154,7 @@ public class GameState {
 
     //play a selected card
     public boolean play(Player player, int a){
-        //player.playerHand[a];
+
         return false;
     }
 
