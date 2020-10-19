@@ -9,12 +9,14 @@ public class GameState {
     Card[] discardPile;
     Card[] deck;
     int whoseTurn;
+    Player[] players;
 
     //constructor
     public GameState(){
         Card[] discardPile = new Card[100];
         Card[] deck = new Card[100];
         int whoseTurn = 1;
+        Player[] players = new Player[4];
     }
 
     //constructor to copy the given gamestate
@@ -36,6 +38,12 @@ public class GameState {
         for (int a = 0; a < gamestate.deck.length; a++) {
             this.deck[a] = gamestate.deck[a];
         }
+
+        //copy of player array
+        for (int a = 0; a < gamestate.players.length; a++) {
+            this.players[a] = gamestate.players[a];
+        }
+
         //copy of whose turn it is
         this.whoseTurn = gamestate.whoseTurn;
     }
@@ -79,7 +87,7 @@ public class GameState {
 
     //play a selected card
     public boolean play(Player player, int a){
-        player.playerHand[a]
+        //player.playerHand[a];
         return false;
     }
 
