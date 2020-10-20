@@ -36,11 +36,11 @@ public class GameState {
          */
         //deep copy of the gamestate discardPile
         for (int a = 0; a < gamestate.discardPile.size(); a++) {
-            this.discardPile.get(a) = gamestate.discardPile.get(a);
+            this.discardPile.set(a, gamestate.discardPile.get(a));
         }
         //deep copy of the gamestate deck
         for (int a = 0; a < gamestate.deck.size(); a++) {
-            this.deck.get(a) = gamestate.deck.get(a);
+            this.deck.set(a, gamestate.deck.get(a));
         }
         //copy of whose turn it is
         this.whoseTurn = gamestate.whoseTurn;
@@ -138,14 +138,14 @@ public class GameState {
     //draw a card and end the turn of the player
     public boolean drawCard(Player player){
         //add the card to the players hand
-        for (int i = 0; i < player.playerHand.length; i++) {
-            if (player.playerHand[i] == null) {
-                player.playerHand[i] = this.deck.get(0);
+        for (int i = 0; i < player.playerHand.size(); i++) {
+            if (player.playerHand.get(i) == null) {
+                player.playerHand.set(i, this.deck.get(0));
 
                 //copy the deck except shift every card left by 1 to remove the card that was drawn
                 int a = 1;
                 for (int b = 0; b < this.deck.size(); b++) {
-                    this.deck.get(b) = this.deck.get(a);
+                    this.deck.set(b, this.deck.get(a));
                     a++;
                 }
 
