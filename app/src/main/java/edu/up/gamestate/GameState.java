@@ -163,12 +163,14 @@ public class GameState {
         Card trade2 = play.playerHand.get(b);
         if (trade1.getCardType() == trade2.getCardType()) {
             //update the players hand
-            play.playerHand.set(b, play.playerHand.get(b));
-            play.playerHand.set(a, play.playerHand.get(a));
+            play.playerHand.set(b, play.playerHand.get(b+1));
+            play.playerHand.set(a, play.playerHand.get(a+1));
             //copy the new card from the target player into the player hand
             Random rand = new Random();
             int random = rand.nextInt(targ.playerHand.size() + 1);
             play.playerHand.add(targ.playerHand.get(random));
+            //remove the target player card that was stolen
+            targ.playerHand.remove(random);
             return true;
         }
 
