@@ -147,9 +147,19 @@ public class GameState {
         return false;
     }
 
-    public boolean trade2(){return false;}
+    public boolean trade2(Player play, Player targ, Card trade1, Card trade2) {
+        //determine if the two cards are of the same card type
+        if (trade1.getCardType() == trade2.getCardType()) {
 
-    public boolean trade3(){return false;}
+        }
+
+        return false;
+    }
+
+    public boolean trade3(Player play, Player targ, Card trade1, Card trade2, Card trade3, Card targCard) {
+
+        return false;
+    }
 
     public boolean trade5(){return false;}
 
