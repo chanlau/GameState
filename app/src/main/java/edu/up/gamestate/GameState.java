@@ -104,7 +104,7 @@ public class GameState {
         boolean addCard = false;
         //add the card to the players hand
         for (int i = 0; i < player.playerHand.length; i++) {
-            if (player.playerHand[i] != null) {
+            if (player.playerHand[i] == null) {
                 player.playerHand[i] = this.deck[0];
                 addCard = true;
                 this.whoseTurn++;
