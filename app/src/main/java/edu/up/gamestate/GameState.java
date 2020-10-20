@@ -76,10 +76,12 @@ public class GameState {
             return Skip();
         }
         else if(action instanceof Trade2){
-            return trade2();
+            return trade2(action.getPlayer(), ((Trade2) action).getTarget(),
+                    ((Trade2) action).getPosC1(), ((Trade2) action).getPosC2());
         }
         else if(action instanceof Trade3){
-            return trade3();
+            return trade3(action.getPlayer(), ((Trade3) action).getTarget(), ((Trade3) action).getPosC1(),
+                    ((Trade3) action).getPosC2(), ((Trade3) action).getPosC3(), ((Trade3) action).getTargetValue());
         }
         else if(action instanceof Trade5){
             return trade5(action.getPlayer(), ((Trade5) action).getPosC1(), ((Trade5) action).getPosC2(),
@@ -106,7 +108,13 @@ public class GameState {
         return false;
     }
 
-    public boolean Favor(){
+    //current player selects a target player and target player gives current player a card of target
+    //players choosing
+    public boolean Favor(Player p, Player t, int cardPos) {
+        //copy card from target player to current player
+        p.playerHand.add(t.playerHand.get(cardPos));
+        //remove the card form the target player hand
+        t.playerHand.remove(cardPos);
         return false;
     }
 
