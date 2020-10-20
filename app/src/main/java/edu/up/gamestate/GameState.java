@@ -182,19 +182,19 @@ public class GameState {
         return false;
     }
 
-    public boolean trade3(Player play, Player targ, int a, int b, int c, Card targCard) {
+    public boolean trade3(Player play, Player targ, int a, int b, int c, int targCard) {
         //determine if the three cards are of the same type
         Card trade1 = play.playerHand.get(a);
         Card trade2 = play.playerHand.get(b);
         Card trade3 = play.playerHand.get(c);
         if (trade1.getCardType() == trade2.getCardType() && trade2.getCardType() == trade3.getCardType()) {
             //update the players hand
-            play.playerHand.remove(a);
-            play.playerHand.remove(b);
             play.playerHand.remove(c);
+            play.playerHand.remove(b);
+            play.playerHand.remove(a);
             //check to see if the target player has the desired card
             for (int i = 0; i < targ.playerHand.size(); i++) {
-                if (targCard.getCardType() == targ.playerHand.get(i).getCardType()) {
+                if (targCard == targ.playerHand.get(i).getCardType()) {
                     //add the desired card to the player hand and remove it from the target player
                     //hand
                     play.playerHand.add(targ.playerHand.get(i));
@@ -207,13 +207,23 @@ public class GameState {
     }
 
     public boolean trade5(Player p, int cardPos1, int cardPos2, int cardPos3, int cardPos4, int cardPos5, int target){
+        //determine if the 5 cards are the same
         int comp1 = p.playerHand.get(cardPos1).getCardType();
         int comp2 = p.playerHand.get(cardPos2).getCardType();
         int comp3 = p.playerHand.get(cardPos3).getCardType();
         int comp4 = p.playerHand.get(cardPos4).getCardType();
         int comp5 = p.playerHand.get(cardPos5).getCardType();
         if(comp1 == comp2 && comp1 == comp3 && comp1 == comp4 && comp1 == comp5){
-
+            //update the players hand
+            p.playerHand.remove(cardPos5);
+            p.playerHand.remove(cardPos4);
+            p.playerHand.remove(cardPos3);
+            p.playerHand.remove(cardPos2);
+            p.playerHand.remove(cardPos1);
+            //copy the desired card to the players hand
+            p.playerHand.add(discardPile.get(target));
+            //remove the card from the discard pile
+            discardPile.remove(target);
         }
         return false;
     }
