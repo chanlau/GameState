@@ -3,20 +3,22 @@ package edu.up.gamestate;
 import android.util.Log;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class GameState {
+
     //instance variables
-    Card[] discardPile;
-    Card[] deck;
-    Player[] players;
+    ArrayList<Card> discardPile;
+    ArrayList<Card> deck;
+    ArrayList<Player> players;
     int whoseTurn;
 
 
     //constructor
     public GameState(){
-        this.discardPile = new Card[100];
-        this.deck = new Card[100];
-        this.players = new Player[5];
+        this.discardPile = new ArrayList<Card>();
+        this.deck = new ArrayList<Card>();
+        this.players = new ArrayList<Player>();
         this.whoseTurn = 1;
     }
 
