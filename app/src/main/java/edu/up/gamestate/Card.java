@@ -19,17 +19,17 @@ public class Card {
 }
 
 /*Card Index:
-0: Exploding Kitten
-1:Tacocat
-2:BeardCat
-3:Hairy Potato Cat
-4:Rainbow Cat
-5:Cattermelon
-6:Attack
-7:Shuffle
-8:Favor
-9:Skip
-10:See the Future
-11: Nope
-12:Defuse
+0: Exploding Kitten - 3
+1:Tacocat - 4
+2:BeardCat - 4
+3:Hairy Potato Cat - 4
+4:Rainbow Cat - 4
+5:Cattermelon - 4
+6:Attack - 4
+7:Shuffle - 4
+8:Favor - 4
+9:Skip - 4
+10:See the Future - 5
+11: Nope - 5
+12:Defuse - 2 (6 total)
  */

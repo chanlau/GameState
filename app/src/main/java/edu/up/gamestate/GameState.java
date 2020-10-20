@@ -238,12 +238,32 @@ public class GameState {
 
     //restart the deck
     public void populateDeck(){
-        for(int i = 0; i < 4; i++){
+        int i;
+        int j;
+
+        //puts 3 Exploding Kittens into deck
+        for(i = 0; i < 3; i++){
             this.deck.add(new Card(0));
         }
 
+        //puts 4 of each cat card, attack, shuffle, favor, skip cards
+        for(i = 1; i <= 9; i++){
+            for(j = 0; j < 4; j++){
+                this.deck.add(new Card(i));
+            }
+        }
 
+        // puts 5 See the Future and Nope Cards into deck
+        for(i = 10; i <= 11; i++){
+            for(j = 0; j < 5; j++){
+                this.deck.add(new Card(i));
+            }
+        }
 
+        //Puts 2 defuse into deck
+        for(i = 0; i < 2; i++){
+            this.deck.add(new Card(12));
+        }
     }
 
 }
