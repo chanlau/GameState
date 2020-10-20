@@ -60,16 +60,28 @@ public class GameState {
             return drawCard(action.getPlayer());
         }
         else if(action instanceof PlayNopeCard){
-            Nope();
+            return Nope();
         }
         else if(action instanceof PlayFavorCard){
-            Favor();
+            return Favor();
         }
         else if(action instanceof PlayAttackCard) {
             return Attack();
         }
         else if(action instanceof PlayShuffleCard){
-            Shuffle();
+            return Shuffle();
+        }
+        else if(action instanceof Trade2){
+            return trade2();
+        }
+        else if(action instanceof Trade3){
+            return trade3();
+        }
+        else if(action instanceof Trade5){
+            return trade5();
+        }
+        else{
+            Log.d("Invalid Action", "Action provided was an invalid action");
         }
 
         return false;
@@ -84,27 +96,28 @@ public class GameState {
 
 
     //Nope card
-    public void Nope() {
-
+    public boolean Nope() {
+        return false;
     }
 
-    public void Favor(){
-
+    public boolean Favor(){
+        return false;
     }
 
     //See the Future card
-    public void SeeTheFuture() {
-
+    public boolean SeeTheFuture() {
+        return false;
     }
 
     //Shuffle card
-    public void Shuffle() {
-
+    public boolean Shuffle() {
+        return false;
     }
 
     //Skip card
-    public void Skip() {
+    public boolean Skip() {
         nextTurn();
+        return true;
     }
 
 
@@ -129,6 +142,7 @@ public class GameState {
             if (player.playerHand[i] == null) {
                 player.playerHand[i] = this.deck.get(0);
 
+                //copy the deck except shift every card left by 1 to remove the card that was drawn
                 int a = 1;
                 for (int b = 0; b < this.deck.size(); b++) {
                     this.deck.get(b) = this.deck.get(a);
@@ -139,13 +153,6 @@ public class GameState {
                 return true;
             }
         }
-        return false;
-        //copy the deck except shift every card left by 1 to remove the card that was drawn
-
-    }
-
-    //play a selected card
-    public boolean play(Player player, int a){
         return false;
     }
 
