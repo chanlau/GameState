@@ -72,6 +72,9 @@ public class GameState {
         else if(action instanceof PlayShuffleCard){
             return Shuffle();
         }
+        else if(action instanceof PlaySkipCard){
+            return Skip();
+        }
         else if(action instanceof Trade2){
             return trade2();
         }
@@ -79,7 +82,9 @@ public class GameState {
             return trade3();
         }
         else if(action instanceof Trade5){
-            return trade5();
+            return trade5(action.getPlayer(), ((Trade5) action).getPosC1(), ((Trade5) action).getPosC2(),
+                    ((Trade5) action).getPosC3(), ((Trade5) action).getPosC4(), ((Trade5) action).getPosC5(),
+                    ((Trade5) action).getTargetValue());
         }
         else{
             Log.d("Invalid Action", "Action provided was an invalid action");
@@ -180,7 +185,17 @@ public class GameState {
         return false;
     }
 
-    public boolean trade5(){return false;}
+    public boolean trade5(Player p, int cardPos1, int cardPos2, int cardPos3, int cardPos4, int cardPos5, int target){
+        int comp1 = p.playerHand.get(cardPos1).getCardType();
+        int comp2 = p.playerHand.get(cardPos2).getCardType();
+        int comp3 = p.playerHand.get(cardPos3).getCardType();
+        int comp4 = p.playerHand.get(cardPos4).getCardType();
+        int comp5 = p.playerHand.get(cardPos5).getCardType();
+        if(comp1 == comp2 && comp1 == comp3 && comp1 == comp4 && comp1 == comp5){
+
+        }
+        return false;
+    }
 
     //increments turn
     public void nextTurn(){
