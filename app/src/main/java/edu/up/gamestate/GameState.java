@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class GameState {
@@ -111,25 +112,37 @@ public class GameState {
     //current player selects a target player and target player gives current player a card of target
     //players choosing
     public boolean Favor(Player p, Player t, int cardPos) {
-        //copy card from target player to current player
-        p.playerHand.add(t.playerHand.get(cardPos));
-        //remove the card form the target player hand
-        t.playerHand.remove(cardPos);
-        return false;
+            //copy card from target player to current player
+            p.playerHand.add(t.playerHand.get(cardPos));
+            //remove the card form the target player hand
+            t.playerHand.remove(cardPos);
+            return true;
     }
 
-    //See the Future card
+    //See the Future card, display the top 3 cards of the deck
     public boolean SeeTheFuture() {
-        return false;
+        return true;
     }
 
-    //Shuffle card
+    //Shuffle card, shuffle the deck randomly
     public boolean Shuffle() {
+        /**
+         * External Citation
+         * Date: 19 October 2020
+         * Problem: Was unsure if there was an easy way to shuffle and array list
+         * <p>
+         * Resource:
+         * https://www.java2novice.com/java-collections-and-util/arraylist/shuffle/
+         * Solution: Used the example code to shuffle the deck
+         */
+        //shuffle the deck
+        Collections.shuffle(deck);
         return false;
     }
 
     //Skip card
     public boolean Skip() {
+        //call the nextTurn method to move to the next player
         nextTurn();
         return true;
     }
@@ -215,13 +228,16 @@ public class GameState {
     }
 
     public boolean trade5(Player p, int cardPos1, int cardPos2, int cardPos3, int cardPos4, int cardPos5, int target){
-        //determine if the 5 cards are the same
+        //determine if the 5 cards are unique
         int comp1 = p.playerHand.get(cardPos1).getCardType();
         int comp2 = p.playerHand.get(cardPos2).getCardType();
         int comp3 = p.playerHand.get(cardPos3).getCardType();
         int comp4 = p.playerHand.get(cardPos4).getCardType();
         int comp5 = p.playerHand.get(cardPos5).getCardType();
-        if(comp1 == comp2 && comp1 == comp3 && comp1 == comp4 && comp1 == comp5){
+        if(comp1 == comp2 || comp1 == comp3 || comp1 == comp4 || comp1 == comp5 ||
+                comp2 == comp3 || comp2 == comp4 || comp2 == comp5 ||
+                comp3 == comp4 || comp3 == comp5 ||
+                comp4 == comp5) {
             //update the players hand
             p.playerHand.remove(cardPos5);
             p.playerHand.remove(cardPos4);
