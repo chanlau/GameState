@@ -163,8 +163,8 @@ public class GameState {
         Card trade2 = play.playerHand.get(b);
         if (trade1.getCardType() == trade2.getCardType()) {
             //update the players hand
-            play.playerHand.set(b, play.playerHand.get(b+1));
-            play.playerHand.set(a, play.playerHand.get(a+1));
+            play.playerHand.remove(b);
+            play.playerHand.remove(a);
             //copy the new card from the target player into the player hand
             Random rand = new Random();
             int random = rand.nextInt(targ.playerHand.size() + 1);
