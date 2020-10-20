@@ -50,7 +50,7 @@ public class GameState {
             drawCard(action.getPlayer());
         }
         else if(action instanceof PlayAttackCard) {
-            Attack();
+            Attack(); 
         }
 
     }
