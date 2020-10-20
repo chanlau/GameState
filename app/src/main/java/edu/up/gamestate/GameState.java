@@ -65,7 +65,7 @@ public class GameState {
             return Nope();
         }
         else if(action instanceof PlayFavorCard){
-            return Favor();
+            return Favor(action.getPlayer(), ((PlayFavorCard) action).getTarget(), ((PlayFavorCard) action).getChoice());
         }
         else if(action instanceof PlayAttackCard) {
             return Attack();
@@ -308,6 +308,10 @@ public class GameState {
             }
             players.get(i).playerHand.add(new Card(12));
         }
+    }
+
+    public void addPlayer(Player p){
+        players.add(p);
     }
 
 }
