@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameState {
 
@@ -156,10 +157,19 @@ public class GameState {
         return false;
     }
 
-    public boolean trade2(Player play, Player targ, Card trade1, Card trade2) {
+    public boolean trade2(Player play, Player targ, int a, int b) {
         //determine if the two cards are of the same card type
+        Card trade1 = play.playerHand[a];
+        Card trade2 = play.playerHand[b];
         if (trade1.getCardType() == trade2.getCardType()) {
-
+            //update the players hand
+            play.playerHand[b] = play.playerHand[b];
+            play.playerHand[a] = play.playerHand[a];
+            //copy the new card from the target player into the player hand
+            Random rand = new Random();
+            int random = rand.nextInt(targ.playerHand.length + 1);
+            play.playerHand.add(targ.playerHand[random]);
+            return true;
         }
 
         return false;
