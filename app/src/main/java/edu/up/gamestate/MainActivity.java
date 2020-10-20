@@ -29,12 +29,15 @@ MainActivity extends AppCompatActivity implements View.OnClickListener {
         EditText displayText = findViewById(R.id.displayText);
         displayText.setText("");
 
-        Player thisIsntDoneRight = new Player(1);
+        Player Player1 = new Player(1);
+        Player Player2 = new Player(2);
+        Player Player3 = new Player(3);
+        Player Player4 = new Player(4);
 
         GameState firstInstance = new GameState();
         GameState secondInstance = new GameState(firstInstance);
 
-        firstInstance.drawCard(thisIsntDoneRight);
+
         displayText.append("I drew a card");
     }
 }
