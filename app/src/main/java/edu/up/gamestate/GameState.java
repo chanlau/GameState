@@ -194,6 +194,11 @@ public class GameState {
 
     //restart the deck
     public void populateDeck(){
+        for(int i = 0; i < 4; i++){
+            this.deck.add(new Card(0));
+        }
+
+
 
     }
 
