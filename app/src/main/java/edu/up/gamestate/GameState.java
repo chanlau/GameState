@@ -157,6 +157,11 @@ public class GameState {
         Log.d("GameState", "Deck: " + deckString );
         String turnString = Integer.toString(whoseTurn);
         Log.d("GameState", "Whose Turn it is: " + turnString );
+        String PlayerString = players.toString();
+        String Player0String = players.get(0).playerHand.toString();
+        String Player1String = players.get(1).playerHand.toString();
+        String Player2String = players.get(2).playerHand.toString();
+        String Player3String = players.get(3).playerHand.toString();
 
     }
 
