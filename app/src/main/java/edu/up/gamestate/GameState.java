@@ -108,7 +108,13 @@ public class GameState {
         return false;
     }
 
-    public boolean Favor(){
+    //current player selects a target player and target player gives current player a card of target
+    //players choosing
+    public boolean Favor(Player p, Player t, int cardPos) {
+        //copy card from target player to current player
+        p.playerHand.add(t.playerHand.get(cardPos));
+        //remove the card form the target player hand
+        t.playerHand.remove(cardPos);
         return false;
     }
 
