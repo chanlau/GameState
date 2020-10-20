@@ -11,6 +11,7 @@ public class GameState {
     Player[] players;
     int whoseTurn;
 
+
     //constructor
     public GameState(){
         this.discardPile = new Card[100];
@@ -63,33 +64,8 @@ public class GameState {
     }
 
 
-    //Beard Cat card
-    public void BeardCat() {
-
-    }
-
-    //Cattermelon card
-    void Cattermelon() {
-
-    }
-
-    //Favor card
-    void Favor() {
-
-    }
-
-    //Hairy Potato Cat card
-    void HairyPotatoCat() {
-
-    }
-
     //Nope card
     void Nope() {
-
-    }
-
-    //Rainbow-Ralphing Cat card
-    void RainbowRalphingCat() {
 
     }
 
@@ -105,17 +81,7 @@ public class GameState {
 
     //Skip card
     void Skip() {
-
-    }
-
-    //Tacocat card
-    void TacoCat () {
-
-    }
-
-    //Exploding Kitten card
-    void ExplodingKitten() {
-
+        nextTurn();
     }
 
 
@@ -158,7 +124,6 @@ public class GameState {
 
     //play a selected card
     public boolean play(Player player, int a){
-
         return false;
     }
 
@@ -167,5 +132,18 @@ public class GameState {
     public boolean trade3(){return false;}
 
     public boolean trade5(){return false;}
+
+    //increments turn
+    public void nextTurn(){
+        this.whoseTurn++;
+        while(players[whoseTurn].checkForExplodingKitten() == true){
+            this.whoseTurn++;
+        }
+    }
+
+    //restart the deck
+    public void populateDeck(){
+
+    }
 
 }
