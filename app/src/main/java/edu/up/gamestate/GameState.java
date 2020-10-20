@@ -35,12 +35,12 @@ public class GameState {
          * Solution: Reaffirmed that the best way is to use a for loop
          */
         //deep copy of the gamestate discardPile
-        for (int a = 0; a < gamestate.discardPile.length; a++) {
-            this.discardPile[a] = gamestate.discardPile[a];
+        for (int a = 0; a < gamestate.discardPile.size(); a++) {
+            this.discardPile.get(a) = gamestate.discardPile.get(a);
         }
         //deep copy of the gamestate deck
-        for (int a = 0; a < gamestate.deck.length; a++) {
-            this.deck[a] = gamestate.deck[a];
+        for (int a = 0; a < gamestate.deck.size(); a++) {
+            this.deck.get(a) = gamestate.deck.get(a);
         }
         //copy of whose turn it is
         this.whoseTurn = gamestate.whoseTurn;
@@ -78,8 +78,8 @@ public class GameState {
     //Attack card action
     public boolean Attack() {
         nextTurn();
-        drawCard(players[whoseTurn]);
-        return drawCard(players[whoseTurn]);
+        drawCard(players.get(whoseTurn));
+        return drawCard(players.get(whoseTurn));
     }
 
 
@@ -111,9 +111,9 @@ public class GameState {
     //to string class
     //@Override
     public void ToString(){
-        String discardString = Arrays.toString(discardPile);
+        String discardString = discardPile.toString();
         Log.d("GameState", "Discard Pile: " + discardString );
-        String deckString = Arrays.toString(deck);
+        String deckString = deck.toString();
         Log.d("GameState", "Deck: " + deckString );
         String turnString = Integer.toString(whoseTurn);
         Log.d("GameState", "Whose Turn it is: " + turnString );
@@ -127,11 +127,11 @@ public class GameState {
         //add the card to the players hand
         for (int i = 0; i < player.playerHand.length; i++) {
             if (player.playerHand[i] == null) {
-                player.playerHand[i] = this.deck[0];
+                player.playerHand[i] = this.deck.get(0);
 
                 int a = 1;
-                for (int b = 0; b < this.deck.length; b++) {
-                    this.deck[b] = this.deck[a];
+                for (int b = 0; b < this.deck.size(); b++) {
+                    this.deck.get(b) = this.deck.get(a);
                     a++;
                 }
 
@@ -158,7 +158,7 @@ public class GameState {
     //increments turn
     public void nextTurn(){
         this.whoseTurn++;
-        while(players[whoseTurn].checkForExplodingKitten() == true){
+        while(players.get(whoseTurn).checkForExplodingKitten() == true){
             this.whoseTurn++;
         }
     }
