@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class Player {
     //Player class will signify what
     int playerNum;
+    String playerName;
     ArrayList<Card> playerHand;
 
-    public Player(int num){
+    public Player(int num, String name){
         this.playerNum = num;
+        this.playerName = name;
     }
 
     public boolean checkForExplodingKitten(){
@@ -23,4 +25,5 @@ public class Player {
     public int getPlayerNum(){
         return this.playerNum;
     }
+    public String getPlayerName() {return this.playerName;}
 }
