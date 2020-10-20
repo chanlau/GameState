@@ -165,7 +165,7 @@ public class GameState {
     //increments turn
     public void nextTurn(){
         this.whoseTurn++;
-        while(players[whoseTurn].checkForExplodingKitten() == true){
+        while(players.get(whoseTurn).checkForExplodingKitten()){
             this.whoseTurn++;
         }
     }
