@@ -46,21 +46,25 @@ public class GameState {
     //method to call when a card is played
     public void makeMove(CardAction action) {
         //check which action is being taken
-        if(action instanceof PlayAttackCard) {
-            Attack(action.getPlayer(), ((PlayAttackCard) action).getTarget());
+        if(action instanceof DrawCard){
+            drawCard(action.getPlayer());
+        }
+        else if(action instanceof PlayAttackCard) {
+            Attack();
         }
 
     }
 
-    //attack card
-    void Attack(Player player, Player target) {
+    //Attack card action
+    public void Attack() {
         whoseTurn++;
-        
+        drawCard(players[whoseTurn]);
+        drawCard(players[whoseTurn]);
     }
 
 
     //Beard Cat card
-    void BeardCat() {
+    public void BeardCat() {
 
     }
 
