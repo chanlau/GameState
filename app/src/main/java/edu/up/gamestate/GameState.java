@@ -276,9 +276,10 @@ public class GameState {
                 this.deck.add(new Card(i));
             }
         }
-        
+
     }
 
+    //adds defuse and explode cards to deck
     public void populateDefuseExplode(){
         int i;
         int j;
@@ -290,6 +291,17 @@ public class GameState {
         //Puts 2 defuse into deck
         for(i = 0; i < 2; i++){
             this.deck.add(new Card(12));
+        }
+    }
+
+    //adds appropriate amt. of cards to all players hands
+    public void populateHands(){
+        int i, j;
+        for(i = 0; i < 4; i++){
+            for(j= 0; j < 7; j++){
+                drawCard(players.get(i));
+            }
+            players.get(i).playerHand.add(new Card(12));
         }
     }
 
