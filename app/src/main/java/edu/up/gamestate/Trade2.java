@@ -8,7 +8,7 @@ public class Trade2 extends CardAction{
         super(p);
         this.targetPlayer = t;
         this.PosC1 = c1;
-        this.PosC1 = c2;
+        this.PosC2 = c2;
     }
 
     //Getter methods for all of the instance variables
