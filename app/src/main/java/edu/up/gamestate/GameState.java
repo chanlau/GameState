@@ -177,8 +177,27 @@ public class GameState {
         return false;
     }
 
-    public boolean trade3(Player play, Player targ, Card trade1, Card trade2, Card trade3, Card targCard) {
-
+    public boolean trade3(Player play, Player targ, int a, int b, int c, Card targCard) {
+        //determine if the three cards are of the same type
+        Card trade1 = play.playerHand.get(a);
+        Card trade2 = play.playerHand.get(b);
+        Card trade3 = play.playerHand.get(c);
+        if (trade1.getCardType() == trade2.getCardType() && trade2.getCardType() == trade3.getCardType()) {
+            //update the players hand
+            play.playerHand.remove(a);
+            play.playerHand.remove(b);
+            play.playerHand.remove(c);
+            //check to see if the target player has the desired card
+            for (int i = 0; i < targ.playerHand.size(); i++) {
+                if (targCard.getCardType() == targ.playerHand.get(i).getCardType()) {
+                    //add the desired card to the player hand and remove it from the target player
+                    //hand
+                    play.playerHand.add(targ.playerHand.get(i));
+                    targ.playerHand.remove(i);
+                }
+            }
+            return true;
+        }
         return false;
     }
 
