@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 public class GameState {
     //instance variables
+    GameState previous = null;
     Card[] discardPile;
     Card[] deck;
     Player[] players;
@@ -45,42 +46,62 @@ public class GameState {
 
 
     //method to call when a card is played
-    public void makeMove(CardAction action) {
-        //check which action is being taken
-        if(action instanceof DrawCard){
-            drawCard(action.getPlayer());
-        }
-        else if(action instanceof PlayAttackCard) {
-            Attack(); 
+    public boolean makeMove(CardAction action) {
+        if(this.whoseTurn != action.getPlayer().getPlayerNum()){
+            return false;
         }
 
+        this.previous = this;
+
+        //check which action is being taken
+        if(action instanceof DrawCard){
+            return drawCard(action.getPlayer());
+        }
+        else if(action instanceof PlayNopeCard){
+            Nope();
+        }
+        else if(action instanceof PlayFavorCard){
+            Favor();
+        }
+        else if(action instanceof PlayAttackCard) {
+            return Attack();
+        }
+        else if(action instanceof PlayShuffleCard){
+            Shuffle();
+        }
+
+        return false;
     }
 
     //Attack card action
-    public void Attack() {
-        whoseTurn++;
+    public boolean Attack() {
+        nextTurn();
         drawCard(players[whoseTurn]);
-        drawCard(players[whoseTurn]);
+        return drawCard(players[whoseTurn]);
     }
 
 
     //Nope card
-    void Nope() {
+    public void Nope() {
+
+    }
+
+    public void Favor(){
 
     }
 
     //See the Future card
-    void SeeTheFuture() {
+    public void SeeTheFuture() {
 
     }
 
     //Shuffle card
-    void Shuffle() {
+    public void Shuffle() {
 
     }
 
     //Skip card
-    void Skip() {
+    public void Skip() {
         nextTurn();
     }
 
@@ -101,25 +122,24 @@ public class GameState {
 
     //draw a card and end the turn of the player
     public boolean drawCard(Player player){
-        boolean addCard = false;
         //add the card to the players hand
         for (int i = 0; i < player.playerHand.length; i++) {
-            if (player.playerHand[i] != null) {
+            if (player.playerHand[i] == null) {
                 player.playerHand[i] = this.deck[0];
-                addCard = true;
-                this.whoseTurn++;
-            }
-        }
 
-        //copy the deck except shift every card left by 1 to remove the card that was drawn
-        if (addCard) {
-            int a = 1;
-            for (int b = 0; b < this.deck.length; b++) {
-                this.deck[b] = this.deck[a];
-                a++;
+                int a = 1;
+                for (int b = 0; b < this.deck.length; b++) {
+                    this.deck[b] = this.deck[a];
+                    a++;
+                }
+
+                //return true if the card was drawn and removed from the deck
+                return true;
             }
         }
-        return addCard;
+        return false;
+        //copy the deck except shift every card left by 1 to remove the card that was drawn
+
     }
 
     //play a selected card

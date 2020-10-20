@@ -17,4 +17,8 @@ public class Player {
         }
         return false;
     }
+
+    public int getPlayerNum(){
+        return this.playerNum;
+    }
 }
