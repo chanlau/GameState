@@ -168,20 +168,41 @@ public class GameState {
         Card trade2 = play.playerHand.get(b);
         if (trade1.getCardType() == trade2.getCardType()) {
             //update the players hand
-            play.playerHand.set(b, play.playerHand.get(b));
-            play.playerHand.set(a, play.playerHand.get(a));
+            play.playerHand.remove(b);
+            play.playerHand.remove(a);
             //copy the new card from the target player into the player hand
             Random rand = new Random();
             int random = rand.nextInt(targ.playerHand.size() + 1);
             play.playerHand.add(targ.playerHand.get(random));
+            //remove the target player card that was stolen
+            targ.playerHand.remove(random);
             return true;
         }
 
         return false;
     }
 
-    public boolean trade3(Player play, Player targ, Card trade1, Card trade2, Card trade3, Card targCard) {
-
+    public boolean trade3(Player play, Player targ, int a, int b, int c, Card targCard) {
+        //determine if the three cards are of the same type
+        Card trade1 = play.playerHand.get(a);
+        Card trade2 = play.playerHand.get(b);
+        Card trade3 = play.playerHand.get(c);
+        if (trade1.getCardType() == trade2.getCardType() && trade2.getCardType() == trade3.getCardType()) {
+            //update the players hand
+            play.playerHand.remove(a);
+            play.playerHand.remove(b);
+            play.playerHand.remove(c);
+            //check to see if the target player has the desired card
+            for (int i = 0; i < targ.playerHand.size(); i++) {
+                if (targCard.getCardType() == targ.playerHand.get(i).getCardType()) {
+                    //add the desired card to the player hand and remove it from the target player
+                    //hand
+                    play.playerHand.add(targ.playerHand.get(i));
+                    targ.playerHand.remove(i);
+                }
+            }
+            return true;
+        }
         return false;
     }
 
