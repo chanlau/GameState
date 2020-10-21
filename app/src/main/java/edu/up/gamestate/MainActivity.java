@@ -32,8 +32,9 @@ MainActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         //Clearing all current text in the text field
+
         EditText displayText = findViewById(R.id.displayText);
-        displayText.setText("");
+        displayText.append("BIg boats");
 
         //Added four players to the game
         Player Player1 = new Player(1, "The Ghost of Tyson");
@@ -106,6 +107,8 @@ MainActivity extends AppCompatActivity implements View.OnClickListener {
 
         displayText.append(secondInstance.toString());
         displayText.append(fourthInstance.toString());
+
+
 
 
 

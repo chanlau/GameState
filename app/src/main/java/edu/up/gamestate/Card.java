@@ -5,7 +5,7 @@ public class Card {
     //if there is one, and the cardType as an int
     private int cardType;
 
-    public Card(int cardType) {
+    public Card(int cardType){
         this.cardType = cardType;
     }
 

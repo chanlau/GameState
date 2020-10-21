@@ -1,9 +1,3 @@
-/**
- * Date: 10/20/2020
- * Authors: Chandler Lau, Ka'ulu Ng, Samuel Warrick
- * Version: Project #d Final
- */
-
 package edu.up.gamestate;
 
 import android.util.Log;
@@ -31,6 +25,7 @@ public class GameState {
      * array lists
      */
     //instance variables
+    GameState previous = null;
     ArrayList<Card> discardPile;
     ArrayList<Card> deck;
     ArrayList<Player> players;
@@ -58,20 +53,27 @@ public class GameState {
          * https://www.geeksforgeeks.org/array-copy-in-java/
          * Solution: Reaffirmed that the best way is to use a for loop
          */
+
+        this.discardPile = new ArrayList<Card>();
+        this.deck = new ArrayList<Card>();
+        this.players = new ArrayList<Player>();
+        this.whoseTurn = 1;
+        this.cardsToDraw = 1;
+
         //deep copy of the gamestate discardPile
-        for (int a = 0; a < gamestate.discardPile.size(); a++) {
-            this.discardPile.set(a, gamestate.discardPile.get(a));
+        for (int a = 0; a < gamestate.getDiscardPile().size(); a++) {
+            this.discardPile.add(gamestate.getDiscardPile().get(a));
         }
         //deep copy of the gamestate deck
-        for (int b = 0; b < gamestate.deck.size(); b++) {
-            this.deck.set(b, gamestate.deck.get(b));
+        for (int b = 0; b < gamestate.getDeck().size(); b++) {
+            this.deck.add(gamestate.getDeck().get(b));
         }
         //deep copy of the players array list
-        for (int c = 0; c < gamestate.players.size(); c++) {
-            this.players.set(c, gamestate.players.get(c));
+        for (int c = 0; c < gamestate.getPlayers().size(); c++) {
+            this.players.add(gamestate.getPlayers().get(c));
         }
         //copy of whose turn it is
-        this.whoseTurn = gamestate.whoseTurn;
+        this.whoseTurn = gamestate.getWhoseTurn();
     }
 
 
@@ -421,18 +423,18 @@ public class GameState {
 
     public void makeTestHand() {
         int i, j;
-        for (i = 0; i < players.size(); i++) {
+        for (i = 0; i < 4; i++) {
             //puts 3 tacocats in hand
-            for (j = 0; i < 3; j++) {
-                players.get(i).playerHand.add(new Card(1));
+            for (j = 0; j < 3; j++) {
+                this.players.get(i).getPlayerHand().add(new Card(1));
             }
             //puts 2 beardcats in hand
             for (j = 0; j < 2; j++) {
-                players.get(i).playerHand.add(new Card(2));
+                this.players.get(i).getPlayerHand().add(new Card(2));
             }
             //puts one of every card in hand
             for (j = 1; j <= 12; j++) {
-                players.get(i).playerHand.add(new Card(j));
+                this.players.get(i).getPlayerHand().add(new Card(j));
             }
         }
 
@@ -442,4 +444,19 @@ public class GameState {
         players.add(p);
     }
 
+    public ArrayList<Card> getDiscardPile(){
+        return this.discardPile;
+    }
+
+    public ArrayList<Card> getDeck(){
+        return this.deck;
+    }
+
+    public ArrayList<Player> getPlayers(){
+        return this.players;
+    }
+
+    public int getWhoseTurn(){
+        return this.whoseTurn;
+    }
 }
