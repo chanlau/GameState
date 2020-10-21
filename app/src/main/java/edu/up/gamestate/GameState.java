@@ -70,10 +70,10 @@ public class GameState {
             return Nope(action.getPlayer());
         }
         else if(action instanceof PlayFavorCard){
-            return Favor(action.getPlayer(), ((PlayFavorCard) action).getTarget());
+            return Favor(action.getPlayer(), ((PlayFavorCard) action).getTarget(), ((PlayFavorCard) action).getChoice());
         }
         else if(action instanceof PlayAttackCard) {
-            return Attack();
+            return Attack(action.getPlayer());
         }
         else if(action instanceof PlayShuffleCard){
             return Shuffle(action.getPlayer());
@@ -102,8 +102,12 @@ public class GameState {
     }
 
     //Attack card action
-    public boolean Attack() {
-        //increments the amount of cards
+    public boolean Attack(Player p) {
+        int card = checkHand(p, 6);
+        //move the card into the discard pile
+        discardPile.add(p.playerHand.get(card));
+        p.playerHand.remove(card);
+        //increment cards to draw counter and change turn
         cardsToDraw++;
         nextTurn();
         return true;
@@ -121,13 +125,13 @@ public class GameState {
 
     //current player selects a target player and target player gives current player a card of target
     //players choosing
-    public boolean Favor(Player p, Player t) {
+    public boolean Favor(Player p, Player t, int targCard) {
         int card = checkHand(p, 8);
         //copy card from target player to current player
         p.playerHand.add(t.playerHand.get(card));
         //add the played favor card to the discard pile and remove it from the players hand
-        discardPile.add(p.playerHand.get(card));
-        t.playerHand.remove(card);
+        discardPile.add(p.playerHand.get(targCard));
+        t.playerHand.remove(targCard);
         return true;
     }
 
