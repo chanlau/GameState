@@ -105,17 +105,21 @@ public class GameState {
 
 
     //Nope card
-    public boolean Nope() {
+    public boolean Nope(Player p, int card) {
+        //move the played nope card to the discard pile and remove it from the players hand
+        discardPile.add(p.playerHand.get(card));
+        p.playerHand.remove(card);
         return false;
     }
 
     //current player selects a target player and target player gives current player a card of target
     //players choosing
-    public boolean Favor(Player p, Player t, int cardPos) {
+    public boolean Favor(Player p, Player t, int card) {
             //copy card from target player to current player
-            p.playerHand.add(t.playerHand.get(cardPos));
-            //remove the card form the target player hand
-            t.playerHand.remove(cardPos);
+            p.playerHand.add(t.playerHand.get(card));
+            //add the played favor card to the discard pile and remove it from the players hand
+            discardPile.add(p.playerHand.get(card));
+            t.playerHand.remove(card);
             return true;
     }
 
@@ -125,7 +129,7 @@ public class GameState {
     }
 
     //Shuffle card, shuffle the deck randomly
-    public boolean Shuffle() {
+    public boolean Shuffle(Player p, int card) {
         /**
          * External Citation
          * Date: 19 October 2020
@@ -137,6 +141,9 @@ public class GameState {
          */
         //shuffle the deck
         Collections.shuffle(deck);
+        //add the played shuffle card to the discard pile and remove it from the players hand
+        discardPile.add(p.playerHand.get(card));
+        p.playerHand.remove(card);
         return false;
     }
 
@@ -145,6 +152,19 @@ public class GameState {
         //call the nextTurn method to move to the next player
         nextTurn();
         return true;
+    }
+
+    //Exploding kitten card
+    public boolean ExplodingKitten(Player p) {
+        //check if there is a defuse card in the hand
+        for (int i = 0; i < p.playerHand.size(); i++) {
+            //if there is a defuse card, play it 
+            if (p.playerHand.get(i).getCardType() == 12) {
+                discardPile.add(p.playerHand.get(i));
+                p.playerHand.remove(i);
+            }
+        }
+
     }
 
 
