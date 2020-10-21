@@ -141,10 +141,19 @@ public class GameState {
     }
 
     //Skip card
-    public boolean Skip() {
+    public boolean Skip(Player p) {
+        int i;
         //call the nextTurn method to move to the next player
-        nextTurn();
-        return true;
+        //finds skip in hand and removes it before incrementing the turn;
+        for(i = 0; i < players.get(p.getPlayerNum()).playerHand.size(); i++){
+            if(players.get(p.getPlayerNum()).playerHand.get(i).getCardType() == 9){
+                players.get(p.getPlayerNum()).playerHand.remove(i);
+                nextTurn();
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
