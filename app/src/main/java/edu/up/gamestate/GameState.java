@@ -76,7 +76,7 @@ public class GameState {
             return Shuffle();
         }
         else if(action instanceof PlaySkipCard){
-            return Skip();
+            return Skip(action.getPlayer());
         }
         else if(action instanceof Trade2){
             return trade2(action.getPlayer(), ((Trade2) action).getTarget(),
@@ -149,19 +149,24 @@ public class GameState {
          * https://www.java2novice.com/java-collections-and-util/arraylist/shuffle/
          * Solution: Used the example code to shuffle the deck
          */
-        int card = checkHand(p, 7);
+        //find position of the shuffle card in players hand
+        int position = checkHand(p, 7);
+        //add the played shuffle card to the discard pile and remove it from the players hand
+        discardPile.add(p.playerHand.get(position));
+        p.playerHand.remove(position);
         //shuffle the deck
         Collections.shuffle(deck);
-        //add the played shuffle card to the discard pile and remove it from the players hand
-        discardPile.add(p.playerHand.get(card));
-        p.playerHand.remove(card);
-        return false;
+
+        return true;
     }
 
     //Skip card
     public boolean Skip(Player p) {
         int card = checkHand(p, 9);
         //call the nextTurn method to move to the next player
+        //finds skip in hand and removes it before incrementing the turn;
+        discardPile.add(p.playerHand.get(card));
+        players.get(p.getPlayerNum()).playerHand.remove(card);
         nextTurn();
         return true;
     }
@@ -210,23 +215,14 @@ public class GameState {
 
     //draw a card and end the turn of the player
     public boolean drawCard(Player player){
-        //add the card to the players hand
-        for (int i = 0; i < player.playerHand.size(); i++) {
-            if (player.playerHand.get(i) == null) {
-                player.playerHand.set(i, this.deck.get(0));
-
-                //copy the deck except shift every card left by 1 to remove the card that was drawn
-                int a = 1;
-                for (int b = 0; b < this.deck.size(); b++) {
-                    this.deck.set(b, this.deck.get(a));
-                    a++;
-                }
-
-                //return true if the card was drawn and removed from the deck
-                return true;
-            }
+        //checks if deck is empty
+        if(deck.get(0) == null){
+            return false;
         }
-        return false;
+        //add top card of deck to hand and remove it from deck
+        player.playerHand.add(this.deck.get(0));
+        this.deck.remove(0);
+        return true;
     }
 
     public boolean trade2(Player play, Player targ, int a, int b) {
@@ -301,7 +297,7 @@ public class GameState {
     //increments turn
     public void nextTurn(){
         this.whoseTurn++;
-        while(players.get(whoseTurn).checkForExplodingKitten() == true){
+        while(players.get(whoseTurn).checkForExplodingKitten()){
             this.whoseTurn++;
         }
     }
