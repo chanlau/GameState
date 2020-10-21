@@ -418,11 +418,11 @@ public class GameState {
         int i, j;
         for (i = 0; i < players.size(); i++) {
             //puts 3 tacocats in hand
-            for (j = 0; i < 3; i++) {
+            for (j = 0; i < 3; j++) {
                 players.get(i).playerHand.add(new Card(1));
             }
             //puts 2 beardcats in hand
-            for (j = 0; j < 2; i++) {
+            for (j = 0; j < 2; j++) {
                 players.get(i).playerHand.add(new Card(2));
             }
             //puts one of every card in hand
