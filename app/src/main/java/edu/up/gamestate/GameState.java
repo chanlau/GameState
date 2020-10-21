@@ -310,6 +310,27 @@ public class GameState {
         }
     }
 
+//sets all players hands to be able to do each action once
+
+    public void makeTestHand(){
+        int i, j;
+        for(i = 0; i < players.size(); i++){
+            //puts 3 tacocats in hand
+            for(j = 0; i < 3; i++){
+                players.get(i).playerHand.add(new Card(1));
+            }
+            //puts 2 beardcats in hand
+            for(j = 0; j < 2; i++){
+                players.get(i).playerHand.add(new Card(2));
+            }
+            //puts one of every card in hand
+            for(j = 1; j <= 12; j++){
+                players.get(i).playerHand.add(new Card(j));
+            }
+        }
+
+    }
+
     public void addPlayer(Player p){
         players.add(p);
     }
