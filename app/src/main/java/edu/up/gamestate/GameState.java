@@ -188,10 +188,10 @@ public class GameState {
         int position = checkHand(p, 7);
         //add the played shuffle card to the discard pile and remove it from
         //the players hand
-        discardPile.add(p.playerHand.get(position));
-        p.playerHand.remove(position);
+        discardPile.add(p.getPlayerHand().get(position));
+        p.getPlayerHand().remove(position);
         //shuffle the deck
-        Collections.shuffle(deck);
+        Collections.shuffle(getDeck());
 
         return true;
     }
@@ -220,18 +220,18 @@ public class GameState {
     public boolean ExplodingKitten(Player p) {
         boolean trigger = false;
         //check if there is a defuse card in the hand
-        for (int i = 0; i < p.playerHand.size(); i++) {
+        for (int i = 0; i < p.getPlayerHand().size(); i++) {
             //reshuffle the exploding kitten card back into the deck
-            if (p.playerHand.get(i).getCardType() == 0) {
-                deck.add(p.playerHand.get(i));
-                Collections.shuffle(deck);
+            if (p.getPlayerHand().get(i).getCardType() == 0) {
+                getDeck().add(p.getPlayerHand().get(i));
+                Collections.shuffle(getDeck());
             }
             //if there is a defuse card, play it and move the defuse card to
             // the discard pile and remove it from the players hand, return
             // true to indicate that the bomb has been defused
-            if (p.playerHand.get(i).getCardType() == 12) {
-                discardPile.add(p.playerHand.get(i));
-                p.playerHand.remove(i);
+            if (p.getPlayerHand().get(i).getCardType() == 12) {
+                getDiscardPile().add(p.getPlayerHand().get(i));
+                p.getPlayerHand().remove(i);
                 trigger = true;
             }
         }
@@ -242,15 +242,15 @@ public class GameState {
     //to string class
     //@Override
     public String ToString(){
-        String discardString = discardPile.toString();
-        String deckString = Integer.toString(deck.size());
-        String turnString = Integer.toString(whoseTurn);
+        String discardString = getDiscardPile().toString();
+        String deckString = Integer.toString(getDeck().size());
+        String turnString = Integer.toString(getWhoseTurn());
         String cardsToDrawString = Integer.toString(cardsToDraw);
-        String PlayerString = players.toString();
-        String Player0String = players.get(0).playerHand.toString();
-        String Player1String = players.get(1).playerHand.toString();
-        String Player2String = players.get(2).playerHand.toString();
-        String Player3String = players.get(3).playerHand.toString();
+        String PlayerString = getPlayers().toString();
+        String Player0String = getPlayers().get(0).getPlayerHand().toString();
+        String Player1String = getPlayers().get(1).getPlayerHand().toString();
+        String Player2String = getPlayers().get(2).getPlayerHand().toString();
+        String Player3String = getPlayers().get(3).getPlayerHand().toString();
         return ("Discard Pile: " + discardString + "\n Cards in Deck: " + deckString + "\n Turn: " + turnString
                 + "\n Cards to Draw Counter" + cardsToDrawString + "\n Players:" + Player0String + "\n Player 1 Hand:" +
                 Player0String + "\n Player 2 Hand: " + Player1String + "\n Player 3 Hand" + Player2String +
