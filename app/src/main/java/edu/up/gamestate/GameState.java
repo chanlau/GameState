@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import static java.sql.Types.NULL;
+
 public class GameState {
 
     //instance variables
@@ -105,27 +107,34 @@ public class GameState {
 
 
     //Nope card
-    public boolean Nope() {
+    public boolean Nope(Player p) {
+        int card = checkHand(p, 11);
+        //move the played nope card to the discard pile and remove it from the players hand
+        discardPile.add(p.playerHand.get(card));
+        p.playerHand.remove(card);
         return false;
     }
 
     //current player selects a target player and target player gives current player a card of target
     //players choosing
-    public boolean Favor(Player p, Player t, int cardPos) {
-            //copy card from target player to current player
-            p.playerHand.add(t.playerHand.get(cardPos));
-            //remove the card form the target player hand
-            t.playerHand.remove(cardPos);
-            return true;
+    public boolean Favor(Player p, Player t) {
+        int card = checkHand(p, 8);
+        //copy card from target player to current player
+        p.playerHand.add(t.playerHand.get(card));
+        //add the played favor card to the discard pile and remove it from the players hand
+        discardPile.add(p.playerHand.get(card));
+        t.playerHand.remove(card);
+        return true;
     }
 
     //See the Future card, display the top 3 cards of the deck
-    public boolean SeeTheFuture() {
+    public boolean SeeTheFuture(Player p) {
+        int card = checkHand(p, 10);
         return true;
     }
 
     //Shuffle card, shuffle the deck randomly
-    public boolean Shuffle() {
+    public boolean Shuffle(Player p) {
         /**
          * External Citation
          * Date: 19 October 2020
@@ -135,16 +144,43 @@ public class GameState {
          * https://www.java2novice.com/java-collections-and-util/arraylist/shuffle/
          * Solution: Used the example code to shuffle the deck
          */
+        int card = checkHand(p, 7);
         //shuffle the deck
         Collections.shuffle(deck);
+        //add the played shuffle card to the discard pile and remove it from the players hand
+        discardPile.add(p.playerHand.get(card));
+        p.playerHand.remove(card);
         return false;
     }
 
     //Skip card
-    public boolean Skip() {
+    public boolean Skip(Player p) {
+        int card = checkHand(p, 9);
         //call the nextTurn method to move to the next player
         nextTurn();
         return true;
+    }
+
+    //Exploding kitten card
+    public boolean ExplodingKitten(Player p) {
+        boolean trigger = false;
+        //check if there is a defuse card in the hand
+        for (int i = 0; i < p.playerHand.size(); i++) {
+            //reshuffle the exploding kitten card back into the deck
+            if (p.playerHand.get(i).getCardType() == 0) {
+                deck.add(p.playerHand.get(i));
+                Collections.shuffle(deck);
+            }
+            //if there is a defuse card, play it and move the defuse card to the discard pile
+            //and remove it from the players hand, return true to indicate that the bomb has
+            //been defused
+            if (p.playerHand.get(i).getCardType() == 12) {
+                discardPile.add(p.playerHand.get(i));
+                p.playerHand.remove(i);
+                trigger = true;
+            }
+        }
+        return trigger;
     }
 
 
@@ -263,6 +299,19 @@ public class GameState {
         while(players.get(whoseTurn).checkForExplodingKitten()){
             this.whoseTurn++;
         }
+    }
+
+
+    //check for the card
+    public int checkHand(Player p, int card) {
+        //check to see if the card type exists in the players hand, if it does return the
+        //position of the card
+        for (int i = 0; i < p.playerHand.size(); i++) {
+            if (p.playerHand.get(i).getCardType() == card) {
+                return i;
+            }
+        }
+        return NULL;
     }
 
     //restart the deck
