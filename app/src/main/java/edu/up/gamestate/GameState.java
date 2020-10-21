@@ -46,6 +46,8 @@ public class GameState {
         }
         //copy of whose turn it is
         this.whoseTurn = gamestate.whoseTurn;
+
+        this.previous = new GameState(gamestate.previous);
     }
 
 
@@ -305,8 +307,14 @@ public class GameState {
         }
     }
 
+    //Adds a player to the player ArrayList
     public void addPlayer(Player p){
         players.add(p);
+    }
+
+    public void revertGameState(){
+        GameState temp = new GameState(this);
+
     }
 
 }

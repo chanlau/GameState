@@ -29,11 +29,13 @@ MainActivity extends AppCompatActivity implements View.OnClickListener {
         EditText displayText = findViewById(R.id.displayText);
         displayText.setText("");
 
-        Player Player1 = new Player(1, "Tyson");
+        //Added four players to the game
+        Player Player1 = new Player(1, "The Ghost of Tyson");
         Player Player2 = new Player(2, "Ka'ulu");
         Player Player3 = new Player(3, "Sam");
         Player Player4 = new Player(4, "Chandler");
 
+        //Started the first instance of the game
         GameState firstInstance = new GameState();
         firstInstance.populateDeck();
         firstInstance.addPlayer(Player1);
@@ -45,7 +47,6 @@ MainActivity extends AppCompatActivity implements View.OnClickListener {
         CardAction attack2 = new PlayAttackCard(Player1, Player2);
         firstInstance.makeMove(attack2);
         displayText.append(Player1.getPlayerName() + " attacked " + Player2.getPlayerName() + ".");
-        CardAction
 
     }
 }
