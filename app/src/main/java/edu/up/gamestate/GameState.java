@@ -1,3 +1,9 @@
+/**
+ * Date: 10/20/2020
+ * Authors: Chandler Lau, Ka'ulu Ng, Samuel Warrick
+ * Version: Project #d Final
+ */
+
 package edu.up.gamestate;
 
 import android.util.Log;
@@ -25,7 +31,6 @@ public class GameState {
      * array lists
      */
     //instance variables
-    GameState previous = null;
     ArrayList<Card> discardPile;
     ArrayList<Card> deck;
     ArrayList<Player> players;
