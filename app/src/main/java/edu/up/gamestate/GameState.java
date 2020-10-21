@@ -98,6 +98,8 @@ public class GameState {
             return Shuffle(action.getPlayer());
         } else if (action instanceof PlaySkipCard) {
             return Skip(action.getPlayer());
+        } else if (action instanceof PlayFutureCard){
+            return SeeTheFuture(action.getPlayer()) ;
         } else if (action instanceof Trade2) {
             return trade2(action.getPlayer(), ((Trade2) action).getTarget(),
                     ((Trade2) action).getPosC1(), ((Trade2) action).getPosC2());
@@ -128,8 +130,8 @@ public class GameState {
     public boolean Attack(Player p) {
         int card = checkHand(p, 6);
         //move the card into the discard pile
-        discardPile.add(p.playerHand.get(card));
-        p.playerHand.remove(card);
+        discardPile.add(p.getPlayerHand().get(card));
+        p.getPlayerHand().remove(card);
         //increment cards to draw counter and change turn
         cardsToDraw++;
         nextTurn();
@@ -142,8 +144,8 @@ public class GameState {
         int card = checkHand(p, 11);
         //move the played nope card to the discard pile and remove it from
         //the players hand
-        discardPile.add(p.playerHand.get(card));
-        p.playerHand.remove(card);
+        discardPile.add(p.getPlayerHand().get(card));
+        p.getPlayerHand().remove(card);
         return false;
     }
 
@@ -153,11 +155,11 @@ public class GameState {
     public boolean Favor(Player p, Player t, int targCard) {
         int card = checkHand(p, 8);
         //copy selected card from target player to current player
-        p.playerHand.add(t.playerHand.get(card));
+        p.getPlayerHand().add(t.getPlayerHand().get(card));
         //move the played favor card to the discard pile and remove it from
         // the players hand
-        discardPile.add(p.playerHand.get(targCard));
-        t.playerHand.remove(targCard);
+        discardPile.add(p.getPlayerHand().get(targCard));
+        t.getPlayerHand().remove(targCard);
         return true;
     }
 
@@ -165,8 +167,8 @@ public class GameState {
     //current player looks at the top three cards of the deck
     public boolean SeeTheFuture(Player p) {
         int card = checkHand(p, 10);
-        discardPile.add(p.playerHand.get(card));
-        p.playerHand.remove(card);
+        discardPile.add(p.getPlayerHand().get(card));
+        p.getPlayerHand().remove(card);
         return true;
     }
 
