@@ -1,6 +1,7 @@
 package edu.up.gamestate;
 
 import android.util.Log;
+import android.widget.EditText;
 
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class GameState {
     ArrayList<Card> deck;
     ArrayList<Player> players;
     int whoseTurn;
+    int cardsToDraw;
 
 
     //constructor
@@ -25,6 +27,7 @@ public class GameState {
         this.deck = new ArrayList<Card>();
         this.players = new ArrayList<Player>();
         this.whoseTurn = 1;
+        this.cardsToDraw = 1;
     }
 
     //constructor to copy the given gamestate
@@ -64,16 +67,16 @@ public class GameState {
             return drawCard(action.getPlayer());
         }
         else if(action instanceof PlayNopeCard){
-            return Nope();
+            return Nope(action.getPlayer());
         }
         else if(action instanceof PlayFavorCard){
             return Favor(action.getPlayer(), ((PlayFavorCard) action).getTarget(), ((PlayFavorCard) action).getChoice());
         }
         else if(action instanceof PlayAttackCard) {
-            return Attack();
+            return Attack(action.getPlayer());
         }
         else if(action instanceof PlayShuffleCard){
-            return Shuffle();
+            return Shuffle(action.getPlayer());
         }
         else if(action instanceof PlaySkipCard){
             return Skip(action.getPlayer());
@@ -103,11 +106,11 @@ public class GameState {
         int card = checkHand(p, 6);
         //move the card into the discard pile
         discardPile.add(p.playerHand.get(card));
-        p.playerHand.remove(6);
-        //end the turn of the current player and force the next player to draw 2 cards
+        p.playerHand.remove(card);
+        //increment cards to draw counter and change turn
+        cardsToDraw++;
         nextTurn();
-        drawCard(players.get(whoseTurn));
-        return drawCard(players.get(whoseTurn));
+        return true;
     }
 
 
@@ -122,19 +125,21 @@ public class GameState {
 
     //current player selects a target player and target player gives current player a card of target
     //players choosing
-    public boolean Favor(Player p, Player t) {
+    public boolean Favor(Player p, Player t, int targCard) {
         int card = checkHand(p, 8);
         //copy card from target player to current player
         p.playerHand.add(t.playerHand.get(card));
         //add the played favor card to the discard pile and remove it from the players hand
-        discardPile.add(p.playerHand.get(card));
-        t.playerHand.remove(card);
+        discardPile.add(p.playerHand.get(targCard));
+        t.playerHand.remove(targCard);
         return true;
     }
 
     //See the Future card, display the top 3 cards of the deck
     public boolean SeeTheFuture(Player p) {
         int card = checkHand(p, 10);
+        discardPile.add(p.playerHand.get(card));
+        p.playerHand.remove(card);
         return true;
     }
 
@@ -167,6 +172,11 @@ public class GameState {
         //finds skip in hand and removes it before incrementing the turn;
         discardPile.add(p.playerHand.get(card));
         players.get(p.getPlayerNum()).playerHand.remove(card);
+        if(this.cardsToDraw > 1){
+            this.cardsToDraw--;
+            return true;
+        }
+
         nextTurn();
         return true;
     }
@@ -196,19 +206,20 @@ public class GameState {
 
     //to string class
     //@Override
-    public void ToString(){
+    public String ToString(){
         String discardString = discardPile.toString();
-        Log.d("GameState", "Discard Pile: " + discardString );
-        String deckString = deck.toString();
-        Log.d("GameState", "Deck: " + deckString );
+        String deckString = Integer.toString(deck.size());
         String turnString = Integer.toString(whoseTurn);
-        Log.d("GameState", "Whose Turn it is: " + turnString );
+        String cardsToDrawString = Integer.toString(cardsToDraw);
         String PlayerString = players.toString();
         String Player0String = players.get(0).playerHand.toString();
         String Player1String = players.get(1).playerHand.toString();
         String Player2String = players.get(2).playerHand.toString();
         String Player3String = players.get(3).playerHand.toString();
-
+        return ("Discard Pile: " + discardString + "\n Cards in Deck: " + deckString + "\n Turn: " + turnString
+                + "\n Cards to Draw Counter" + cardsToDrawString + "\n Players:" + Player0String + "\n Player 1 Hand:" +
+                Player0String + "\n Player 2 Hand: " + Player1String + "\n Player 3 Hand" + Player2String +
+                "\n Player 4 Hand: " + Player3String);
     }
 
     //methods for actions
@@ -222,6 +233,12 @@ public class GameState {
         //add top card of deck to hand and remove it from deck
         player.playerHand.add(this.deck.get(0));
         this.deck.remove(0);
+        this.cardsToDraw--;
+        //alternate turn
+        if(this.cardsToDraw == 0){
+            nextTurn();
+            this.cardsToDraw = 1;
+        }
         return true;
     }
 
