@@ -25,12 +25,12 @@ public class GameState {
      * array lists
      */
     //instance variables
-   private GameState previous = null;
-   private ArrayList<Card> discardPile;
-   private ArrayList<Card> deck;
-   private ArrayList<Player> players;
-   private int whoseTurn;
-   private int cardsToDraw;
+    GameState previous = null;
+    ArrayList<Card> discardPile;
+    ArrayList<Card> deck;
+    ArrayList<Player> players;
+    int whoseTurn;
+    int cardsToDraw;
 
 
     //constructor
