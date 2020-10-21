@@ -107,7 +107,8 @@ public class GameState {
 
 
     //Nope card
-    public boolean Nope(Player p, int card) {
+    public boolean Nope(Player p) {
+        int card = checkHand(p, 11);
         //move the played nope card to the discard pile and remove it from the players hand
         discardPile.add(p.playerHand.get(card));
         p.playerHand.remove(card);
@@ -116,22 +117,24 @@ public class GameState {
 
     //current player selects a target player and target player gives current player a card of target
     //players choosing
-    public boolean Favor(Player p, Player t, int card) {
-            //copy card from target player to current player
-            p.playerHand.add(t.playerHand.get(card));
-            //add the played favor card to the discard pile and remove it from the players hand
-            discardPile.add(p.playerHand.get(card));
-            t.playerHand.remove(card);
-            return true;
+    public boolean Favor(Player p, Player t) {
+        int card = checkHand(p, 8);
+        //copy card from target player to current player
+        p.playerHand.add(t.playerHand.get(card));
+        //add the played favor card to the discard pile and remove it from the players hand
+        discardPile.add(p.playerHand.get(card));
+        t.playerHand.remove(card);
+        return true;
     }
 
     //See the Future card, display the top 3 cards of the deck
-    public boolean SeeTheFuture() {
+    public boolean SeeTheFuture(Player p) {
+        int card = checkHand(p, 10);
         return true;
     }
 
     //Shuffle card, shuffle the deck randomly
-    public boolean Shuffle(Player p, int card) {
+    public boolean Shuffle(Player p) {
         /**
          * External Citation
          * Date: 19 October 2020
@@ -144,8 +147,8 @@ public class GameState {
         //find position of the shuffle card in players hand
         int position = checkHand(p, 7);
         //add the played shuffle card to the discard pile and remove it from the players hand
-        discardPile.add(p.playerHand.get(card));
-        p.playerHand.remove(card);
+        discardPile.add(p.playerHand.get(position));
+        p.playerHand.remove(position);
         //shuffle the deck
         Collections.shuffle(deck);
 
@@ -154,11 +157,11 @@ public class GameState {
 
     //Skip card
     public boolean Skip(Player p) {
-        int position = checkHand(p, 9);
+        int card = checkHand(p, 9);
         //call the nextTurn method to move to the next player
         //finds skip in hand and removes it before incrementing the turn;
-        discardPile.add(p.playerHand.get(position));
-        players.get(p.getPlayerNum()).playerHand.remove(position);
+        discardPile.add(p.playerHand.get(card));
+        players.get(p.getPlayerNum()).playerHand.remove(card);
         nextTurn();
         return true;
     }
