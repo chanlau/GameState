@@ -99,7 +99,12 @@ public class GameState {
     }
 
     //Attack card action
-    public boolean Attack() {
+    public boolean Attack(Player p) {
+        int card = checkHand(p, 6);
+        //move the card into the discard pile
+        discardPile.add(p.playerHand.get(card));
+        p.playerHand.remove(6);
+        //end the turn of the current player and force the next player to draw 2 cards
         nextTurn();
         drawCard(players.get(whoseTurn));
         return drawCard(players.get(whoseTurn));
