@@ -148,19 +148,14 @@ public class GameState {
     }
 
     //Skip card
-    public boolean Skip(Player p) {
+    public boolean Skip(Player p, int card) {
         int i;
         //call the nextTurn method to move to the next player
         //finds skip in hand and removes it before incrementing the turn;
-        for(i = 0; i < players.get(p.getPlayerNum()).playerHand.size(); i++){
-            if(players.get(p.getPlayerNum()).playerHand.get(i).getCardType() == 9){
-                players.get(p.getPlayerNum()).playerHand.remove(i);
-                nextTurn();
-                return true;
-            }
-        }
-
-        return false;
+        discardPile.add(p.playerHand.get(card));
+        players.get(p.getPlayerNum()).playerHand.remove(card);
+        nextTurn();
+        return true;
     }
 
     //Exploding kitten card
@@ -198,23 +193,14 @@ public class GameState {
 
     //draw a card and end the turn of the player
     public boolean drawCard(Player player){
-        //add the card to the players hand
-        for (int i = 0; i < player.playerHand.size(); i++) {
-            if (player.playerHand.get(i) == null) {
-                player.playerHand.set(i, this.deck.get(0));
-
-                //copy the deck except shift every card left by 1 to remove the card that was drawn
-                int a = 1;
-                for (int b = 0; b < this.deck.size(); b++) {
-                    this.deck.set(b, this.deck.get(a));
-                    a++;
-                }
-
-                //return true if the card was drawn and removed from the deck
-                return true;
-            }
+        //checks if deck is empty
+        if(deck.get(0) == null){
+            return false;
         }
-        return false;
+        //add top card of deck to hand and remove it from deck
+        player.playerHand.add(this.deck.get(0));
+        this.deck.remove(0);
+        return true;
     }
 
     public boolean trade2(Player play, Player targ, int a, int b) {
