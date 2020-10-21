@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import static java.sql.Types.NULL;
+
 public class GameState {
 
     //instance variables
@@ -292,6 +294,19 @@ public class GameState {
         while(players.get(whoseTurn).checkForExplodingKitten() == true){
             this.whoseTurn++;
         }
+    }
+
+
+    //check for the card
+    public int checkHand(Player p, int card) {
+        //check to see if the card type exists in the players hand, if it does return the
+        //position of the card
+        for (int i = 0; i < p.playerHand.size(); i++) {
+            if (p.playerHand.get(i).getCardType() == card) {
+                return i;
+            }
+        }
+        return NULL;
     }
 
     //restart the deck
