@@ -76,7 +76,7 @@ public class GameState {
             return Shuffle();
         }
         else if(action instanceof PlaySkipCard){
-            return Skip();
+            return Skip(action.getPlayer());
         }
         else if(action instanceof Trade2){
             return trade2(action.getPlayer(), ((Trade2) action).getTarget(),
@@ -141,21 +141,24 @@ public class GameState {
          * https://www.java2novice.com/java-collections-and-util/arraylist/shuffle/
          * Solution: Used the example code to shuffle the deck
          */
-        //shuffle the deck
-        Collections.shuffle(deck);
+        //find position of the shuffle card in players hand
+        int position = checkHand(p, 7);
         //add the played shuffle card to the discard pile and remove it from the players hand
         discardPile.add(p.playerHand.get(card));
         p.playerHand.remove(card);
-        return false;
+        //shuffle the deck
+        Collections.shuffle(deck);
+
+        return true;
     }
 
     //Skip card
-    public boolean Skip(Player p, int card) {
-        int i;
+    public boolean Skip(Player p) {
+        int position = checkHand(p, 9);
         //call the nextTurn method to move to the next player
         //finds skip in hand and removes it before incrementing the turn;
-        discardPile.add(p.playerHand.get(card));
-        players.get(p.getPlayerNum()).playerHand.remove(card);
+        discardPile.add(p.playerHand.get(position));
+        players.get(p.getPlayerNum()).playerHand.remove(position);
         nextTurn();
         return true;
     }
