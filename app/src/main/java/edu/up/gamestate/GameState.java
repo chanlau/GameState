@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import static java.sql.Types.NULL;
+
 public class GameState {
 
     //instance variables
@@ -160,15 +162,24 @@ public class GameState {
 
     //Exploding kitten card
     public boolean ExplodingKitten(Player p) {
+        boolean trigger = false;
         //check if there is a defuse card in the hand
         for (int i = 0; i < p.playerHand.size(); i++) {
-            //if there is a defuse card, play it 
+            //reshuffle the exploding kitten card back into the deck
+            if (p.playerHand.get(i).getCardType() == 0) {
+                deck.add(p.playerHand.get(i));
+                Collections.shuffle(deck);
+            }
+            //if there is a defuse card, play it and move the defuse card to the discard pile
+            //and remove it from the players hand, return true to indicate that the bomb has
+            //been defused
             if (p.playerHand.get(i).getCardType() == 12) {
                 discardPile.add(p.playerHand.get(i));
                 p.playerHand.remove(i);
+                trigger = true;
             }
         }
-
+        return trigger;
     }
 
 
@@ -278,6 +289,19 @@ public class GameState {
         while(players.get(whoseTurn).checkForExplodingKitten() == true){
             this.whoseTurn++;
         }
+    }
+
+
+    //check for the card
+    public int checkHand(Player p, int card) {
+        //check to see if the card type exists in the players hand, if it does return the
+        //position of the card
+        for (int i = 0; i < p.playerHand.size(); i++) {
+            if (p.playerHand.get(i).getCardType() == card) {
+                return i;
+            }
+        }
+        return NULL;
     }
 
     //restart the deck
