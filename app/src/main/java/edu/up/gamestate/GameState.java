@@ -1,3 +1,9 @@
+/**
+ * Date: 10/20/2020
+ * Authors: Chandler Lau, Ka'ulu Ng, Samuel Warrick
+ * Version: Project #d Final
+ */
+
 package edu.up.gamestate;
 
 import android.util.Log;
@@ -188,8 +194,8 @@ public class GameState {
         int position = checkHand(p, 7);
         //add the played shuffle card to the discard pile and remove it from
         //the players hand
-        discardPile.add(p.playerHand.get(position));
-        p.playerHand.remove(position);
+        discardPile.add(p.getPlayerHand().get(position));
+        p.getPlayerHand().remove(position);
         //shuffle the deck
         Collections.shuffle(deck);
 
@@ -201,8 +207,8 @@ public class GameState {
     public boolean Skip(Player p) {
         int card = checkHand(p, 9);
         //finds skip in hand and removes it before incrementing the turn;
-        discardPile.add(p.playerHand.get(card));
-        players.get(p.getPlayerNum()).playerHand.remove(card);
+        discardPile.add(p.getPlayerHand().get(card));
+        players.get(p.getPlayerNum()).getPlayerHand().remove(card);
         //call the nextTurn method to move to the next player
         if(this.cardsToDraw > 1){
             this.cardsToDraw--;
@@ -266,7 +272,7 @@ public class GameState {
             return false;
         }
         //add top card of deck to hand and remove it from deck
-        player.playerHand.add(this.deck.get(0));
+        player.getPlayerHand().add(this.deck.get(0));
         this.deck.remove(0);
         this.cardsToDraw--;
         //alternate turn
@@ -279,18 +285,18 @@ public class GameState {
 
     public boolean trade2(Player play, Player targ, int a, int b) {
         //determine if the two cards are of the same card type
-        Card trade1 = play.playerHand.get(a);
-        Card trade2 = play.playerHand.get(b);
+        Card trade1 = play.getPlayerHand().get(a);
+        Card trade2 = play.getPlayerHand().get(b);
         if (trade1.getCardType() == trade2.getCardType()) {
             //update the players hand
-            play.playerHand.remove(b);
-            play.playerHand.remove(a);
+            play.getPlayerHand().remove(b);
+            play.getPlayerHand().remove(a);
             //copy the new card from the target player into the player hand
             Random rand = new Random();
-            int random = rand.nextInt(targ.playerHand.size() + 1);
-            play.playerHand.add(targ.playerHand.get(random));
+            int random = rand.nextInt(targ.getPlayerHand().size() + 1);
+            play.getPlayerHand().add(targ.getPlayerHand().get(random));
             //remove the target player card that was stolen
-            targ.playerHand.remove(random);
+            targ.getPlayerHand().remove(random);
             return true;
         }
 
@@ -300,23 +306,23 @@ public class GameState {
     public boolean trade3(Player play, Player targ, int a, int b, int c,
                           int targCard) {
         //determine if the three cards are of the same type
-        Card trade1 = play.playerHand.get(a);
-        Card trade2 = play.playerHand.get(b);
-        Card trade3 = play.playerHand.get(c);
+        Card trade1 = play.getPlayerHand().get(a);
+        Card trade2 = play.getPlayerHand().get(b);
+        Card trade3 = play.getPlayerHand().get(c);
         if (trade1.getCardType() == trade2.getCardType() &&
                 trade2.getCardType() == trade3.getCardType()) {
             //update the players hand
-            play.playerHand.remove(c);
-            play.playerHand.remove(b);
-            play.playerHand.remove(a);
+            play.getPlayerHand().remove(c);
+            play.getPlayerHand().remove(b);
+            play.getPlayerHand().remove(a);
             //check to see if the target player has the desired card
-            for (int i = 0; i < targ.playerHand.size(); i++) {
-                if (targCard == targ.playerHand.get(i).getCardType()) {
+            for (int i = 0; i < targ.getPlayerHand().size(); i++) {
+                if (targCard == targ.getPlayerHand().get(i).getCardType()) {
                     //add the desired card to the player hand and remove it
                     // from the target player
                     //hand
-                    play.playerHand.add(targ.playerHand.get(i));
-                    targ.playerHand.remove(i);
+                    play.getPlayerHand().add(targ.getPlayerHand().get(i));
+                    targ.getPlayerHand().remove(i);
                 }
             }
             return true;
@@ -330,23 +336,23 @@ public class GameState {
     public boolean trade5(Player p, int cardPos1, int cardPos2, int cardPos3,
                           int cardPos4, int cardPos5, int target) {
         //determine if the 5 cards are unique
-        int comp1 = p.playerHand.get(cardPos1).getCardType();
-        int comp2 = p.playerHand.get(cardPos2).getCardType();
-        int comp3 = p.playerHand.get(cardPos3).getCardType();
-        int comp4 = p.playerHand.get(cardPos4).getCardType();
-        int comp5 = p.playerHand.get(cardPos5).getCardType();
+        int comp1 = p.getPlayerHand().get(cardPos1).getCardType();
+        int comp2 = p.getPlayerHand().get(cardPos2).getCardType();
+        int comp3 = p.getPlayerHand().get(cardPos3).getCardType();
+        int comp4 = p.getPlayerHand().get(cardPos4).getCardType();
+        int comp5 = p.getPlayerHand().get(cardPos5).getCardType();
         if (comp1 == comp2 || comp1 == comp3 || comp1 == comp4 || comp1 == comp5 ||
                 comp2 == comp3 || comp2 == comp4 || comp2 == comp5 ||
                 comp3 == comp4 || comp3 == comp5 ||
                 comp4 == comp5) {
             //update the players hand
-            p.playerHand.remove(cardPos5);
-            p.playerHand.remove(cardPos4);
-            p.playerHand.remove(cardPos3);
-            p.playerHand.remove(cardPos2);
-            p.playerHand.remove(cardPos1);
+            p.getPlayerHand().remove(cardPos5);
+            p.getPlayerHand().remove(cardPos4);
+            p.getPlayerHand().remove(cardPos3);
+            p.getPlayerHand().remove(cardPos2);
+            p.getPlayerHand().remove(cardPos1);
             //copy the desired card to the players hand
-            p.playerHand.add(discardPile.get(target));
+            p.getPlayerHand().add(discardPile.get(target));
             //remove the card from the discard pile
             discardPile.remove(target);
         }
@@ -366,8 +372,8 @@ public class GameState {
     public int checkHand(Player p, int card) {
         //check to see if the card type exists in the players hand, if it
         // does return the position of the card
-        for (int i = 0; i < p.playerHand.size(); i++) {
-            if (p.playerHand.get(i).getCardType() == card) {
+        for (int i = 0; i < p.getPlayerHand().size(); i++) {
+            if (p.getPlayerHand().get(i).getCardType() == card) {
                 return i;
             }
         }
