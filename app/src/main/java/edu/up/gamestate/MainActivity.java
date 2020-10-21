@@ -60,25 +60,50 @@ MainActivity extends AppCompatActivity implements View.OnClickListener {
             displayText.append(Player1 + " traded 5 cards to potentially get a defuse card from the discard pile");
         }
 
-        CardAction p1attackp2 = new PlayAttackCard(Player1);
-        if(firstInstance.makeMove(p1attackp2)){
+        CardAction p1shuffle = new PlayShuffleCard(Player1);
+        if(firstInstance.makeMove(p1shuffle)){
+            displayText.append(Player1.getPlayerName() + " shuffled the deck. ");
+        }
+
+        CardAction p1SeeFuture = new PlayFutureCard(Player1);
+        if(firstInstance.makeMove(p1SeeFuture)){
+            displayText.append(Player1.getPlayerName() + " saw the top three cards of the deck. ");
+        }
+
+        CardAction p1Favor4 = new PlayFavorCard(Player1,Player4,0);
+        if(firstInstance.makeMove(p1Favor4)) {
+            displayText.append(Player1.getPlayerName() + " took a favor from " + Player4.getPlayerName() + ". ");
+        }
+
+        CardAction p1Nope = new PlayNopeCard(Player1);
+        if(firstInstance.makeMove(p1Nope)){
+            displayText.append(Player1.getPlayerName() + " played a Nope Card. ");
+        }
+
+        CardAction p1attack2 = new PlayAttackCard(Player1);
+        if(firstInstance.makeMove(p1attack2)){
             displayText.append(Player1.getPlayerName() + " attacked " + Player2.getPlayerName() + ". ");
         }
 
-        CardAction p3Shuffle = new PlayShuffleCard(Player3);
-        if(firstInstance.makeMove(p3Shuffle)) {
-            displayText.append(Player3.getPlayerName() + " shuffled the deck. ");
+        CardAction p2skip = new PlaySkipCard(Player2);
+        if(firstInstance.makeMove(p2skip)){
+            displayText.append(Player2.getPlayerName() + "skipped one turn. ");
         }
 
-        CardAction p3draw = new DrawCard(Player3);
-        if(firstInstance.makeMove(p3draw)) {
-            displayText.append(Player3.getPlayerName() + " drew a card from the deck. ");
+        CardAction p2draw = new DrawCard(Player2);
+        if(firstInstance.makeMove(p2draw)) {
+            displayText.append(Player2.getPlayerName() + " drew a card from the deck. ");
         }
 
-        CardAction p4Favor1 = new PlayFavorCard(Player4,Player1,0);
-        if(firstInstance.makeMove(p4Favor1)) {
-            displayText.append(Player4.getPlayerName() + " took a favor from " + Player1.getPlayerName() + ". ");
-        }
+        GameState thirdInstance =  new GameState();
+        GameState fourthInstance =  new GameState(thirdInstance);
+
+        displayText.append(secondInstance.toString());
+        displayText.append(fourthInstance.toString());
+
+
+
+
 
 
 
