@@ -431,7 +431,7 @@ public class GameState {
 
     public void makeTestHand() {
         int i, j;
-        for (i = 0; i < 4; i++) {
+        for (i = 0; i < this.players.size(); i++) {
             //puts 3 tacocats in hand
             for (j = 0; j < 3; j++) {
                 this.players.get(i).getPlayerHand().add(new Card(1));

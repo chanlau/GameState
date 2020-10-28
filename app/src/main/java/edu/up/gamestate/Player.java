@@ -21,8 +21,8 @@ public class Player {
     }
 
     public boolean checkForExplodingKitten(){
-        for(int i = 0; i <= this.playerHand.size(); i++){
-            if(playerHand.get(i).getCardType() == 0){
+        for(int i = 0; i < this.playerHand.size(); i++){
+            if(this.playerHand.get(i).getCardType() == 0){
                 return true;
             }
         }
